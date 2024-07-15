@@ -11,7 +11,7 @@ def model_inference(content,companies):
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         torch_dtype=torch.bfloat16,
-        device_map="cpu", token = "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"
+        device_map="cpu", token = "TOKEN TO BE SET HERE"
     )
     prompt = 'extract from the input text the The size of the equity checks they are writing for solarpark investments. If no information is available, output "N/A". The total megawatts of solarparks they are investing in. If no information is available, output "N/A".Investment in Solarparks: For each company, indicate whether they are investing in solarparks. Output a boolean value (true or false) for each company. If no information is available, output "N/A".The companies are:{companies}'
 
