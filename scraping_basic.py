@@ -1,10 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import re
-import spacy
 import pandas as pd
-
-
 
 def extract_blog_links_env(soup):
     # Adjust the selector to match the links to the blog posts on the website

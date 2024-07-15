@@ -28,6 +28,6 @@ def save_to_excel_company(data):
         })
 
     df = pd.DataFrame(formatted_data)
-    df.to_excel("companies_investment_info.xlsx", index=False)
+    df.to_excel("output/companies_investment_info.xlsx", index=False)
 
     print("Results saved to companies_investment_info.xlsx")

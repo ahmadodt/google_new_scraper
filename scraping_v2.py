@@ -126,6 +126,7 @@ class GoogleNewsFeedScraper:
                     count+=1
                     if count % 10 == 0:
                         print(f"Processed {count} articles.")
+                    
                     if investment_info["investing_in_solar_parks"]:
                         num_entries += 1
                         
@@ -135,75 +136,28 @@ class GoogleNewsFeedScraper:
                             "pubdate": pubdate,
                             "investment_info": investment_info
                         })
+                    if count ==20:
+                        break
                     if num_entries >= self.limit:
                         break
-                    time.sleep(2) # Add a delay
+                    time.sleep(1) # Add a delay
                 except requests.RequestException as e:
                     print(f"Error fetching page content: {e}")
                 
         else:
             print("Nothing Found!")
 
-    def scrape_renewable_energy_world_solar(self):
-        url = 'https://www.renewableenergyworld.com/solar/'
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        }
-        
-        try:
-            response = requests.get(url, headers=headers)
-            if response.status_code == 200:
-                soup = BeautifulSoup(response.content, 'html.parser')
-                article_links = soup.find_all('a', class_='entry-title-link')
-                num_entries = 0
-                
-                for link in article_links:
-                    href = link.get('href')
-                    title = link.text.strip()
-                    pubdate = None  # You can extract publication date if available
-                    
-                    try:
-                        page_content = requests.get(href, headers=headers).text
-                        investment_info = self.extract_investment_info(page_content)
-                        
-                        if investment_info["investing_in_solar_parks"]:
-                            num_entries += 1
-                            self.data.append({
-                                "title": title,
-                                "link": href,
-                                "pubdate": pubdate,
-                                "investment_info": investment_info
-                            })
-                            
-                        if num_entries >= self.limit:
-                            break
-                        
-                    except requests.RequestException as e:
-                        print(f"Error fetching page content for {title}: {e}")
-                        continue
-                    
-                    time.sleep(2)  # Add a delay to respect scraping etiquette
-                
-                if not self.data:
-                    print("No articles found that match the criteria.")
-                    
-            else:
-                print(f"Failed to retrieve page: {response.status_code}")
-                
-        except requests.RequestException as e:
-            print(f"Error accessing URL: {e}")
-            
-        print(f"Scraping completed. {len(self.data)} articles scraped.")
+
 
 def main():
-    company_names = ['solar investing' ,"ENVIRIA" , "ENREGO", "HIH" , "Merkle"]
+    company_names = ['solar investing' ,"ENVIRIA" , "ENREGO", "HIH" , "Merkle","solar park", "solar farm", "solar power plant", "photovoltaic power station"]
     scraper = GoogleNewsFeedScraper()
     #
-    """for company_name in company_names:
+    for company_name in company_names:
         url = f"https://news.google.com/search?q={company_name}&hl=en-US&gl=US&ceid=US%3Aen"
         rss_url = scraper.convert_to_rss_url(url)
-        scraper.scrape_google_news_feed(rss_url)"""
-    scraper.scrape_renewable_energy_world_solar()
+        scraper.scrape_google_news_feed(rss_url)
+    
     print("Scraping completed.")
     print(f'len(scraper.data): {len(scraper.data)}')
 
@@ -212,7 +166,7 @@ def main():
 
     # Converting the data to JSON format and saving it
     json_data = json.dumps(scraper.data, indent=4)
-    with open('data.json', 'w') as json_file:
+    with open('output/data.json', 'w') as json_file:
         json_file.write(json_data)
 
     print("Data has been written to data.json")
