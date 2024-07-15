@@ -1,0 +1,14 @@
+name: web_scraping_env
+channels:
+  - defaults
+  - conda-forge
+dependencies: 
+  - feedparser
+  - spacy
+  - transformers
+  - beautifulsoup4
+  - requests
+  - nltk
+  - pytorch
+  - pandas
+
