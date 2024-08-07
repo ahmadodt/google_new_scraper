@@ -2,7 +2,7 @@
 This is a simple task to scrape google news and some other websites to search for equity checks, how much  megawats investments and if the investors are investing in solar farms
 
 This was written for the follwoing task:
-Your Task: You are given a company and some target information. Your goal is to find news articles or webpages that contain the target information about the given company. Two cases (choose whichever):
+ Your goal is to find news articles or webpages that contain the target information about the given company. Two cases (choose whichever):
 
 (1) We want to find information on solarpark investors, namely the size of the equity checks they are writing, the megawatts of the solarparks they are investing in, and in general whether they are investing in solarparks (because you are likely to find some renewable energy investors not explictly investing in solarparks).
 
